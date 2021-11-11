@@ -9,8 +9,9 @@ function Directory(props) {
             <ListItem
                 title={item.name}
                 subtitle={item.description}
+                onPress={() => props.onPress(item.id)}
                 leftAvatar={{ source: require('./images/react-lake.jpg')}}  //{{}} required b/c this property
-            />                                                              // requires an object.  First {} is to embed JS inside JSX, and 2nd is to define the object literal
+            />                                                              // requires an object.  First {} is to embed JS inside JSX, and 2nd is to define the object literal                                                        // requires an object.  First {} is to embed JS inside JSX, and 2nd is to define the object literal
         );
     };
 
