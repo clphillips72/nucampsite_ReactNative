@@ -1,27 +1,42 @@
-import React from 'react';
-import { FlatList } from 'react-native';            //FlatList functions like <ol>
-import { ListItem } from 'react-native-elements';   //ListItem functions like <li>
+import React, { Component } from 'react';
+import { FlatList } from 'react-native';
+import { ListItem } from 'react-native-elements';
+import { CAMPSITES } from '../shared/campsites';
 
-function Directory(props) {
+class Directory extends Component {
 
-    const renderDirectoryItem = ({item}) => {       //{item} is a property of an object that's auto passed in by 
-        return (                                    //the Flatlist component.
-            <ListItem
-                title={item.name}
-                subtitle={item.description}
-                onPress={() => props.onPress(item.id)}
-                leftAvatar={{ source: require('./images/react-lake.jpg')}}  //{{}} required b/c this property
-            />                                                              // requires an object.  First {} is to embed JS inside JSX, and 2nd is to define the object literal                                                        // requires an object.  First {} is to embed JS inside JSX, and 2nd is to define the object literal
+    constructor(props) {
+        super(props);
+        this.state = {
+            campsites: CAMPSITES
+        };
+    }
+
+    static navigationOptions = {
+        title: 'Directory'
+    }
+
+    render() {
+        const { navigate } = this.props.navigation;
+        const renderDirectoryItem = ({item}) => {
+            return (
+                <ListItem
+                    title={item.name}
+                    subtitle={item.description}
+                    onPress={() => navigate('CampsiteInfo', { campsiteId: item.id })}
+                    leftAvatar={{ source: require('./images/react-lake.jpg')}}
+                />
+            );
+        };
+
+        return (
+            <FlatList
+                data={this.state.campsites}
+                renderItem={renderDirectoryItem}
+                keyExtractor={item => item.id.toString()}
+            />
         );
-    };
-
-    return (
-        <FlatList                                   // For the FlatList component, every item in
-            data={props.campsites}                  // <== that data prop, 
-            renderItem={renderDirectoryItem}        // <== that is executed and the object containing {item} is passed
-            keyExtractor={item => item.id.toString()}
-        />
-    );
+    }
 }
 
 export default Directory;
