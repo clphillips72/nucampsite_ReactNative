@@ -67,7 +67,7 @@ function RenderComments({comments}) {
                     startingValue={item.rating}
                     imageSize={10}
                     onFinishRating={rating => this.setState({rating: rating})} 
-                    style={{alignItems: 'flex-start', paddingVertical: 5}}                        
+                    style={{alignItems: 'flex-start', paddingVertical: '5%'}}                        
                     fractions="{3}"                        
                     ratingCount={5}   
                     readonly             
