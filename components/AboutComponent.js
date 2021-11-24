@@ -4,6 +4,7 @@ import { Card, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import Loading from './LoadingComponent';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
@@ -54,25 +55,29 @@ class About extends Component {
         if (this.props.partners.errMess) {
             return (
                 <ScrollView>
-                    <Mission />
-                    <Card
-                        title='Community Partners'>
-                        <Text>{this.props.partners.errMess}</Text>
-                    </Card>
+                    <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+                        <Mission />
+                        <Card
+                            title='Community Partners'>
+                            <Text>{this.props.partners.errMess}</Text>
+                        </Card>
+                    </Animatable.View>
                 </ScrollView>
             );
         }
         
         return(
             <ScrollView>
-                <Mission />
-                <Card title="Community Partners">
-                    <FlatList
-                        data={this.props.partners.partners}      // first partners refers to the entire part of the state that includes isLoading, errMess, and the partners data array in redux/partners.js.  The 2nd partners refers to the partners data array that's a part of the 1st partners state.
-                        renderItem={renderPartner}
-                        keyExtractor={item => item.id.toString()}
-                    />
-                </Card>
+                <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+                    <Mission />
+                    <Card title="Community Partners">
+                        <FlatList
+                            data={this.props.partners.partners}      // first partners refers to the entire part of the state that includes isLoading, errMess, and the partners data array in redux/partners.js.  The 2nd partners refers to the partners data array that's a part of the 1st partners state.
+                            renderItem={renderPartner}
+                            keyExtractor={item => item.id.toString()}
+                        />
+                    </Card>
+                </Animatable.View>
             </ScrollView>            
         );
     }
