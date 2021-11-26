@@ -24,12 +24,18 @@ function RenderCampsite(props) {
 
     const {campsite} = props;    //Destructure props to get the campsite so we dont need to use props.campsite below
 
+    const view = React.createRef();
+
     //dx object = distance across the x axis  (if a short swipe, the dx value will be small.  Long swipe will be 
     //                                         a larger dx value)
     const recognizeDrag = ({dx}) => (dx < -200) ? true : false;
-
+    //onStartShouldSetPanResponder and onPanResponderEnd are panHandlers, which cause the campsite information Card in the CampsiteInfo component to respond to a drag gesture of more than 200 pixels to the left
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
+        onPanResponderGrant: () => {
+            view.current.rubberBand(1000)
+            .then(endState => console.log(endState.finished ? 'finished' : 'canceled'));
+        },
         onPanResponderEnd: (e, gestureState) => {
             console.log('pan responder end', gestureState);
             if (recognizeDrag(gestureState)) {
@@ -57,7 +63,13 @@ function RenderCampsite(props) {
 
     if (campsite) {
         return (
-            <Animatable.View animation='fadeInDown' duration={2000} delay={1000} {...panResponder.panHandlers}>
+            <Animatable.View 
+                animation='fadeInDown' 
+                duration={2000} 
+                delay={1000} 
+                ref={view} 
+                {...panResponder.panHandlers}
+            >
                 <Card
                     featuredTitle={campsite.name}
                     image={{uri: baseUrl + campsite.image}}
