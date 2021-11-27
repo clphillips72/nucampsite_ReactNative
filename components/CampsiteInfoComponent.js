@@ -28,7 +28,7 @@ function RenderCampsite(props) {
 
     //dx object = distance across the x axis  (if a short swipe, the dx value will be small.  Long swipe will be 
     //                                         a larger dx value)
-    const recognizeDrag = ({dx}) => (dx < -200) ? true : false;
+    const recognizeDrag = ({dx}) => (dx < -200) ? true : false;    
     //onStartShouldSetPanResponder and onPanResponderEnd are panHandlers, which cause the campsite information Card in the CampsiteInfo component to respond to a drag gesture of more than 200 pixels to the left
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
