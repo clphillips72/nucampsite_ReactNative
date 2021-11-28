@@ -63,9 +63,7 @@ function RenderCampsite(props) {
             }
             return true;
         }
-    });
-
-    
+    });    
 
     if (campsite) {
         return (
@@ -203,7 +201,6 @@ class CampsiteInfo extends Component {
                 >
                     <View style={styles.modal}>
 
-
                         <Rating
                             showRating 
                             startingValue={this.state.rating}
@@ -274,8 +271,7 @@ const styles = StyleSheet.create({
     modal: { 
         justifyContent: 'center',
         margin: 20
-    }
-    
+    }    
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CampsiteInfo);
